@@ -19,6 +19,7 @@ The best articles on each of the topics get published if they meet the editorial
 
 ## Writing guidelines
 - Do not plagiarize.
+- Make sure to keep the articles beginner-friendly. Link any prerequisites.
 - Proper English and Grammar. Tip: Use Grammarly on Google Docs.
 - Proper Formatting.
   - Different Headers (h1, h2, h3, h4).
