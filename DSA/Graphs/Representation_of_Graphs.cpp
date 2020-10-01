@@ -22,8 +22,8 @@ void addedge_listrep(vector<vector<int>> &adjlist, int source, int destination)
 
 int main()
 {
-    /* We will try learn about the ways for representing graphs. We will first try to represent the undirected graph
-       then extend the concept to represent undirected graph.
+    /* We will try to learn about the ways for representing graphs. We will first try to represent the undirected graph
+       then extend the concept to represent an undirected graph.
        There are basically two ways of representation of graphs:
             1. Using Adjacency matrix 
             2. Using Adjacency List
@@ -81,9 +81,9 @@ int main()
             8| 0 0 0 0 0 0 0 1 0 0 
             9| 0 0 0 0 0 0 0 0 0 0    // No '1' in the 10th row or column , which shows that node 9 is not connected with any other node.
             
-            You can notice the edges between (0,1), (1,2) and others.You can also notice the symmeteric nature of the matrix, which happens
+            You can notice the edges between (0,1), (1,2) and others.You can also notice the symmetric nature of the matrix, which happens
             as the graph is undirected.This representation can check for existence of edge between two nodes in O(1). But,sadly we see a lot
-            of zeroes in the matrix. This is a disadvantage of adjacency matrix representaion that it takes O(n*n) space even for sparse graphs.
+            of zeroes in the matrix. This is a disadvantage of adjacency matrix representation that it takes O(n*n) space even for sparse graphs.
         
         ADJACENCY LIST REPRESENTATION
         ====================================================================================================================================
@@ -120,7 +120,7 @@ int main()
         9|->
   */
  
-        /* This adjacency list saves up space but at the cost of increased time complexity for checking whether there exits a node between two edges*/
+        /* This adjacency list saves up space but at the cost of increased time complexity for checking whether there exists a node between two edges*/
        // for dealing with weighted graphs we can make a vector of pairs to store the destination and the corresponding cost of the edge
        // like this vector<vector<pair<int,int>> adjlist(10,vector<pair<int,int>>) */
 
