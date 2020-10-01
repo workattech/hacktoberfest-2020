@@ -101,6 +101,6 @@ Here, first level denotes a broad topic containing one or more subtopics. The se
   - Bash - Cheat Sheet
 
 ## Copyright
-- Both the content creator and workat.tech will own the copyright of any submission on this repository. The content may be reproduced outside this repository only after getting permission from either the creator or the owner of this repository.
+- Both the content creator and workat.tech will own the copyright of any submission on this repository. The content may be reproduced outside this repository only after getting permission from either the content creator or the owner of this repository.
 - The content creator allows workat.tech to use the submissions on any of their platforms with credits to the content creator.
 - Please report any copyright violations in this repository to hi@workat.tech
