@@ -16,6 +16,7 @@ The best articles on each of the topics get published if they meet the editorial
   - Create a branch for that article.
   - Write your article in the respective topic folder. Create a new folder if you have to.
   - Create a Pull Request with the article name as the title.
+ - If you are new to Git and GitHub then please follow [this guideline by godslayer201](https://github.com/workattech/hacktoberfest-2020/blob/3df79661678d1fdab4fb65e59e833cb2aac5a374/Git%20%26%20GitHub/readme.md).
 
 ## Writing guidelines
 - Do not plagiarize.
