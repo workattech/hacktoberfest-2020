@@ -51,7 +51,7 @@ Similar to time complexity, it is also denoted by **Big - O** notation.
 
 Following table contains space complexities of various commonly used algorithms:
 
-| Name of Algorithm |  Best Case  |
+| Name of Algorithm |  Worst Case  |
 | :---------------: | :---------: |
 |  Selection Sort   |   Ω(n^2)    |
 |    Bubble Sort    |    Ω(n)     |
