@@ -1,5 +1,6 @@
-
-MySQL Indexing Best Practices
+---
+Create indexes, but do it wisely. In this tutorial, I will explain the best practices that developers can implement for their MySQL performance tuning efforts. This tutorial will focus on MySQL query performance tuning with the help of index with practical examples.
+---
 
 
 TL;DR This story is going to be a bit longer than usual because the topic demands it’s so. Before jumping into the nitty-gritty of indexing your MySQL query, I think its good to share how I am worthful (which I think :-)) to create such a story. During my work tenure, I got a chance to work with MySQL databases having data size up to 700 Million. I know these numbers are way small. Even though, I am sharing you guys how I indexed and optimized queries. I will be emphasizing more on how to index rather than what is an index and why it’s required.
