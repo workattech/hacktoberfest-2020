@@ -14,7 +14,7 @@ This is done by a lot of cables, routers, servers, data centers, satellites and 
 
 Internet was made in 1960s by the government of the United States to make a decentralized system to distribute information. 
 They installed routers which allowed the flow of information. Since then many private _Internet Service Providers (ISPs)_ have added  their own routers to that network. 
-So no own completely owns the internet, its as if we asked who owned all the telephone lines!
+So no completely owns the internet, its as if we asked who owned all the telephone lines!
 
 
 
@@ -36,7 +36,7 @@ Each router knows how to move packets from source to destination. A packet may t
 ## What is the work of Internet Protocol(IP)?
 
 IP has the task of delivering packets from source to the destination. It's first task it to break the data into packets. Each packet has two components, a header and a payload. 
-It keeps track of packets by assigning an _IP address_ in the packet headers - a designated place to hold packets _metadata_ - before before sending them.
+It keeps track of packets by assigning an _IP address_ in the packet's header - a designated place to hold packet's _metadata_ - before before sending them.
 Finally it is also responsible for _reassembly_.
 
 
