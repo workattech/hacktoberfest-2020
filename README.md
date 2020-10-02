@@ -100,6 +100,17 @@ Here, first level denotes a broad topic containing one or more subtopics. The se
   - Bash - Programming (operators, decision making, loops)
   - Bash - Programming (arrays, strings, functions, etc)
   - Bash - Cheat Sheet
+- Low Level Designing
+  - Design a Library Management System
+  - Design a Parking Lot
+  - Design BookMyShow
+  - Design Multiplayer Bingo Game
+  - Design IRCTC
+  - Design Cricbuzz
+  - Design Facebook - a social network
+- High Level Designing
+  - Reference 1: [25 Software Design Interview Questions to Crack Any Programming and Technical Interviews](https://medium.com/javarevisited/25-software-design-interview-questions-to-crack-any-programming-and-technical-interviews-4b8237942db0)
+  - Reference 2: [Top 10 System Design Interview Questions and Answers](https://www.geeksforgeeks.org/top-10-system-design-interview-questions-and-answers/)
 
 ## Copyright
 - Both the content creator and workat.tech will own the copyright of any submission on this repository. The content may be reproduced outside this repository only after getting permission from either the content creator or the owner of this repository.
