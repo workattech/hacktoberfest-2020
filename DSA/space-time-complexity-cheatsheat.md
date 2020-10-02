@@ -49,7 +49,7 @@ Similar to time complexity, it is also denoted by **Big - O** notation.
 
 ### Space Complexity of various algorithms
 
-Following table contains time complexities of various commonly used algorithms:
+Following table contains space complexities of various commonly used algorithms:
 
 | Name of Algorithm |  Best Case  |
 | :---------------: | :---------: |
