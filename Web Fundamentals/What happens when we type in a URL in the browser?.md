@@ -1,12 +1,8 @@
 # What happens when we type a URL in the browser?
 
-Have you ever noticed the **http://** attached to the URL string when you type in the address of a website? That is one of the most widely used protocols called **hyper text 
-transfer protocol** to communicate via internet. **HTTP** are a set of rules by which you - a client - communicate to a server - say, *workat.tech*. 
+Have you ever noticed the **http://** attached to the URL string when you type in the address of a website? That is one of the most widely used protocols called **hyper text transfer protocol** to communicate via internet. **HTTP** are a set of rules by which you - a client - communicate to a server - say, *workat.tech*. 
 
-Its easier for us to remember websites by their names like *workat.tech* but to a computer a hostname isn't of much use. So, to pin-point the exact address of the server where we 
-want to send our request a mediator called a domain name server or **DNS server** is used. When we type in a URL, a DNS server goes to work and starts to translate the name of the
-website into its IP address. It does this by sending a *query* to several servers, each of which translate a different part of the URL, and finally we get the exact address where 
-we want to send our request. 
+Its easier for us to remember websites by their names like *workat.tech* but to a computer a hostname isn't of much use. So, to pin-point the exact address of the server where wewant to send our request a mediator called a domain name server or **DNS server** is used. When we type in a URL, a DNS server goes to work and starts to translate the name of the website into its IP address. It does this by sending a *query* to several servers, each of which translate a different part of the URL, and finally we get the exact address where we want to send our request. 
 
 Now that we have the IP address, a **request-response cycle** begins. Say that you want to read about some topic on workat.tech, so you will type that URL in your search bar, 
 now behind the scenes a **HTTP request** is send by your browser to the servers of workat.tech and if all goes well a connection is established between you two. The server will 
