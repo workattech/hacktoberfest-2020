@@ -1,4 +1,6 @@
 ---
+Author: Akhil Mathew
+Title: MySQL indexing best practices.
 Create indexes, but do it wisely. In this tutorial, I will explain the best practices that developers can implement for their MySQL performance tuning efforts. This tutorial will focus on MySQL query performance tuning with the help of index with practical examples.
 ---
 
