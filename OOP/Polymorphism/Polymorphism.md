@@ -17,9 +17,88 @@ In Java creating more than one method with same name but with different signatur
 
 > In method overloading, which method is called, is checked at compile time. Therefore it is known as __compile time polymorphism or static binding.__ 
 
+#### Example : 
+```java
+//A Simple Java program to demonstrate method overloading in java
+class Addition  
+{ 
+  int add(int i, int j) //first add() function takes int values
+  {
+  	return i+j;
+  }
+  float add(float f1, float f2) //second add() function takes float values
+  { 
+ 	 return f1+f2;
+  }
+  double add(double d1, double d2) //third add() function takes double values
+  { 
+  	return d1+d2;
+  }
+} 
+class AddOperation
+{
+ public static void main(String args[]) 
+ {
+	Addition Obj=new Addition();
+	System.out.println(Obj.add(1,2));			//method with same name
+	System.out.println(Obj.add(2.5f,4.6f));			//but with change in
+	System.out.println(Obj.add(1.5,2));			//type of argument
+ }
+}
+```
+#### Output : 
 
-#### 2. Run Time Polymorophism – Method Overriding
+```
+3
+7.1
+3.5
+```
+
+
+#### 2. Run Time Polymorphism – Method Overriding
 
 In a class hierarchy, when a method in a sub class has the same name and the same signature as a method in its super class, then the method in the sub class  is said to override the method in the super class. 
 
 > In method overriding, which method will be called , is checked at runtime. So it is called __runtime polymorphism or dynamic binding.__ 
+
+#### Example : 
+```java
+// A Simple Java program to demonstrate method overriding in java
+
+class Parent	// The Base Class
+{
+    void show() 
+	{
+	System.out.println("Parent's show() method"); 
+	}
+}
+
+class Child extends Parent 	// The Inherited class
+{
+    void show() 	//method in inherited class overriding the method in base class
+	{ 
+	System.out.println("Child's show() method");
+	}
+}
+ 
+// Driver class
+class Main
+{
+    public static void main(String[] args)
+    {
+        
+	Parent obj1 = new Parent();		        // A Parent type reference refers to a Parent object, 
+        obj1.show();					// therefore Parent's show() method is called.
+ 
+        Parent obj2 = new Child();			// A Parent type reference refers to a Child object, 
+        obj2.show();					// therefore Child's show() method is called.
+    }
+}
+```
+
+#### Output : 
+
+```
+Parent's show() method
+Child's show() method
+```
