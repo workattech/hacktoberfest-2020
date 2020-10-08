@@ -2,8 +2,8 @@
     -----------
 ->  Short Intro: Find the smallest element for every index by traversing all element after it.
 
-->  Worst Case Time Complexity - O(N2)
-->  Best Case Time Complexity - O(N2)
+->  Worst Case Time Complexity - O(N^2)
+->  Best Case Time Complexity - O(N^2)
 
 //  For more info: https://www.geeksforgeeks.org/bubble-sort/
 
@@ -11,7 +11,7 @@
     --------------
 ->  Short Intro: Sort array before an index and then find perfect place for the value at that index in the sorted part.
 
-->  Worst time complexity - O(N2)  
+->  Worst time complexity - O(N^2)  
 ->  Best Case - O(N) for sorted array
 ->  Space Complexity - O(N)
 
