@@ -1,5 +1,5 @@
 ---
-Author: Akhil Mathew
+Author: Akhil Mathew @akhilmathew001
 Title: MySQL indexing best practices.
 Description: Create indexes, but do it wisely. 
 In this tutorial, I will explain the best practices that developers can implement
