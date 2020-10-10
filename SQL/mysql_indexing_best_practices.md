@@ -44,7 +44,8 @@ Just like you, MySQL will have amazing plans for each query on how to execute, w
 
 Check out the below table description, I want you to memorise this table as it will be using in most of my examples.
 The table doesn’t have any index at present.
-Table description
+
+[Table description](/SQL/images/table_description.png)
 
 **Let’s take a sample query and analyse what EXPLAIN yields to it.**
 
