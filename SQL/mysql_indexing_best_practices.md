@@ -9,7 +9,7 @@ for their MySQL performance tuning efforts.
 
 TL;DR This story is going to be a bit longer than usual because the topic demands it’s so. Before jumping into the nitty-gritty of indexing your MySQL query, I think its good to share how I am worthful (which I think :-)) to create such a story. During my work tenure, I got a chance to work with MySQL databases having data size up to 700 Million. I know these numbers are way small. Even though, I am sharing you guys how I indexed and optimized queries. I will be emphasizing more on how to index rather than what is an index and why it’s required.
 
-When you should Optimize MySQL database?
+**When you should Optimize MySQL database?**
 
 Ideally, query performance tuning should happen regularly.
 Indexing is not a one-time process. It is advised to conduct weekly or monthly checks of database performance to prevent issues adversely affecting your applications.
@@ -19,7 +19,7 @@ The most obvious symptoms of performance problems are:
 - Connection timeouts errors.
 - It is normal to have several concurrent queries running at one time on a busy system, but it becomes a problem when these queries are taking too long to finish.
 
-How will you recognise which of your queries performing adversely?.
+**How will you recognise which of your queries performing adversely?.**
 
 Grasping which of your MySQL query gone crazy is essential in diagnosing the performance issue.
 
@@ -31,7 +31,7 @@ processlist. Use it.
 show processlist;
 show full processlist;
 
-How you will identify whether the query lacks an index?.
+**How you will identify whether the query lacks an index?.**
 
 Now you understood which are those troublemakers in the application. But, how will you recognise that they perform adversely only due to lack of an index?.
 Well, EXPLAIN statement of MySQL can be your lifesaver.
@@ -44,7 +44,7 @@ Check out the below table description, I want you to memorise this table as it w
 The table doesn’t have any index at present.
 Table description
 
-Let’s take a sample query and analyse what EXPLAIN yields to it.
+**Let’s take a sample query and analyse what EXPLAIN yields to it.**
 
 select * from master_users where email="akhil@gmail.com"
 
@@ -65,7 +65,7 @@ After adding an index.
 Now you can see that the query is better optimized and MySQL was able to find a matching result without traversing many rows.
 If you notice, we have our index name present in both of the columns possible_keys and key.
 
-You optimized a simple query but mine is a complex one!!!
+**You optimized a simple query but mine is a complex one!!!**
 
 I know that the query optimized just now is a piece of cake for you. Before jumping into more complex queries,
 I want you to learn the Rule of Thumb in indexing.
@@ -82,7 +82,8 @@ Keeping the rule of thumb in mind, you already know that creating two indexes on
 If separate single-column indexes exist on col1 and col2, MySQL optimizer attempts to use the Index Merge optimization or attempts to find the most restrictive index by deciding which index excludes more rows and using that index to fetch the rows.
 Now, what you will do?.
 
-A multiple column (composite) index to the rescue..!
+**multiple column (composite) index to the rescue..!**
+
 Composite index or Multiple columns index
 
 To optimize such queries, you should create a composite or compound index. A composite index can be described as a compound of multiple columns.
@@ -92,7 +93,7 @@ Let’s see, how you can create a composite index.
 
 ALTER TABLE <table-name> ADD INDEX index_co1_col2(column1, column2, column3,...)
 
-Does the column’s order matters in a compound index?.
+**Does the column’s order matters in a compound index?.**
 
 Yes, it does matters.
 A column which is having the least cardinality value (Having less number of distinctive values) should always be positioned as the left-most side in a composite index.
@@ -138,7 +139,7 @@ But not in the below queries;
 select * from master_users where category_id=3
 select * from master_users where category_id=3 and email="akhil@gmail.com"
 
-What if your query contains OR operator instead of AND?.
+**What if your query contains OR operator instead of AND?.**
 
 select status,category_id from master_users where status=1 or category_id=3
 In this case, MySQL won’t be able to use the index on queries having an OR condition, even if the query contains lookup column and maintains the order of WHERE clause same as the index.
@@ -148,7 +149,7 @@ select status,category_id from master_users where status=1
 UNION ALL
 select status,category_id from master_users where category_id=3
 
-What if your query contains GROUP BY and ORDER BY
+**What if your query contains GROUP BY and ORDER BY**
 
 let’s take the same index (status, category_id, email), and you run the query:
 
@@ -183,24 +184,25 @@ select * from master_users where status=1 GROUP BY category_id
 
 The records are already sorted by status, category_id and email. This allows you to quickly filter down all the records with status=1. After these results are returned they are also then sorted based on category_id since the index orders the rows differently than required in the query.
 
-What if your query contains JOINS?.
+**What if your query contains JOINS?.**
 
 You should have indexes on all the columns used in the JOIN clauses. i.e, columns on each side of ON clause of a join must be indexed.
 
-What if your query contains RANGE conditions?.
+**What if your query contains RANGE conditions?.**
 
 A query is treated as a Range query if it uses any or mix of following operators;
 =, <=>, IN(), IS NULL, or IS NOT NULL, >, <, >=, <=, BETWEEN, !=, or <> operators, or LIKE comparisons (If the argument to LIKE is a constant string that does not start with a wildcard character.)
 
 If you’re utilizing an index for range queries, try to make sure the column you’re specifying the range operator is ordered last within the index. You should only add one of them for each table — the most selective condition, as MySQL can only handle one ‘ranged column’ in each index
 
-So what columns should I Index?
+**So what columns should I Index?**
+
 You should realize from all that we’ve discussed that it depends…
 What columns you’re going to query
 What JOINs you’ll perform
 What ORDER/GROUP BYs etc.
 
-A bonus topic: Covering Index
+**A bonus topic: Covering Index**
 
 Before understanding what a covering index Is, let’s learn how MySQL fetch matching rows for a query.
 A MySQL select query consists of two phases. 
@@ -224,7 +226,7 @@ ALTER TABLE master_users ADD INDEX index_covering(mode, mobile)
 Using above index, MySQL can easily retrieve the Primary Key values for all the records with mode value as 2, and to fetch the mobile column, MySQL no need to depend on the Primary Key index to fetch row data. Above query is completely covered by the index and hence known as a covering index.
 The ideal database design uses a covering index where practical; the query results are computed entirely from the index, without reading the actual table data.
 
-The Dos and Don’ts of Database Indexing
+**The Dos and Don’ts of Database Indexing**
 
 - Do not create indexes unless you know you’ll need them.
 - Don’t index each column in the table separately.
@@ -250,4 +252,4 @@ The Dos and Don’ts of Database Indexing
 - Keep your table statistics up to date.
   This is done with ANALYZE TABLE table_name
 
-Create indexes, but do it wisely. Happy indexing…!!!
+*Create indexes, but do it wisely. Happy indexing…!!!*
