@@ -28,15 +28,17 @@ Let me introduce two ways which are your friends in identifying the queries whic
 MySQL Slow query log. Enable it.
 processlist. Use it.
 
+```
 show processlist;
 show full processlist;
+```
 
 **How you will identify whether the query lacks an index?.**
 
 Now you understood which are those troublemakers in the application. But, how will you recognise that they perform adversely only due to lack of an index?.
 Well, EXPLAIN statement of MySQL can be your lifesaver.
 
-EXPLAIN is used to obtain a query execution plan (that is, an explanation of how MySQL would execute a query).
+**EXPLAIN** is used to obtain a query execution plan (that is, an explanation of how MySQL would execute a query).
 EXPLAIN works with SELECT, DELETE, REPLACE, and UPDATE (From Mysql version 5.7 onwards) statements.
 Just like you, MySQL will have amazing plans for each query on how to execute, which index to pick, how to join tables and which order it should maintain for optimal performance.
 
@@ -46,11 +48,14 @@ Table description
 
 **Let’s take a sample query and analyse what EXPLAIN yields to it.**
 
+```
 select * from master_users where email="akhil@gmail.com"
+```
 
 Explaining the above query gives as…
 
 Before Index
+
 Let’s breakdown the EXPLAIN result. 
 
 As you can see MySQL had traversed through 152685 rows (See the column: rows) of the table to find a matching row and its equal to a full table scan because the table has 153728 rows in total. 
@@ -58,7 +63,10 @@ EXPLAIN result has two columns with names as possible keys and key. possible_key
 As of now, both are empty. An empty key column provides you with the information that the query lacks an index.
 
 Let’s add one index and examine what happens.
+
+```
 ALTER TABLE master_users ADD INDEX index_email(email)
+```
 
 After adding an index.
 
@@ -68,15 +76,17 @@ If you notice, we have our index name present in both of the columns possible_ke
 **You optimized a simple query but mine is a complex one!!!**
 
 I know that the query optimized just now is a piece of cake for you. Before jumping into more complex queries,
-I want you to learn the Rule of Thumb in indexing.
+I want you to learn the **Rule of Thumb in indexing.**
 
-MySQL can only use one index per each of the tables in a query (Exemptions are there. eg, Merging of indexes). 
-Which ideally means that a table in a query, must use a single index for all where-clause, table join, group-by and order-by.
+*MySQL can only use one index per each of the tables in a query (Exemptions are there. eg, Merging of indexes). 
+Which ideally means that a table in a query, must use a single index for all where-clause, table join, group-by and order-by.*
 
 Believe me, learning this rule was a breakthrough in my career. I used to believe that, it’s required to add an individual single index on each of the columns used in WHERE clause, JOIN clause, group-by and order-by.
 
 Let’s take another query.
+```
 select * from master_users where email="akhil@gmail.com" and category_id=3
+```
 
 Keeping the rule of thumb in mind, you already know that creating two indexes on email and category will not help.
 If separate single-column indexes exist on col1 and col2, MySQL optimizer attempts to use the Index Merge optimization or attempts to find the most restrictive index by deciding which index excludes more rows and using that index to fetch the rows.
@@ -91,7 +101,9 @@ By adding several columns into an index you can narrow down the number of rows M
 
 Let’s see, how you can create a composite index.
 
+```
 ALTER TABLE <table-name> ADD INDEX index_co1_col2(column1, column2, column3,...)
+```
 
 **Does the column’s order matters in a compound index?.**
 
@@ -101,20 +113,26 @@ Order of precedence of other columns also dependent on the cardinality of respec
 
 Now, How will you find the cardinality or number of distinct values of a column?. You can just perform a distinctive count query on the column. (It’s advised not to perform such queries mentioned below in a production DB when it is running in the peak time of traffic.)
 
+```
 select count(distinct(email)) from master_users
 select count(distinct(category_id)) from master_users
+```
 
 Distinctive counts of each column
 
 Here you can see that the cardinality of the category_id column is less than that of email column so that we should create a composite index just as follows.
 
+```
 ALTER TABLE master_users ADD INDEX index_category_email(category_id, email)
+```
 
 As you observe the order in which these columns are indexed, and thus how they are sorted will restrict the usage of our index to some particular queries only.
 
 As an example, the index we’ve just created (category_id, email) would not be beneficial for a query such as:
 
+```
 select * from master_users where email=”akhil@gmail.com”
+```
 
 Why? Just now you said that a composite index will be beneficial for mine query.
 Well, there is a reason for it.
@@ -130,49 +148,66 @@ There is another advantage for the composite index; If an index exists on (col1,
 if you have a three-column index on (col1, col2, col3), you have indexed search capabilities on (col1), (col1, col2), and (col1, col2, col3)
 For example, let’s take an index (status, category_id, email). This index will be useful in below queries.
 
+```
 select * from master_users where status=1
 select * from master_users where status=1 and category_id=3
 select * from master_users where status=1 and category_id=3 and email="akhil@gmail.com"
+```
 
 But not in the below queries;
 
+```
 select * from master_users where category_id=3
 select * from master_users where category_id=3 and email="akhil@gmail.com"
+```
 
 **What if your query contains OR operator instead of AND?.**
 
+```
 select status,category_id from master_users where status=1 or category_id=3
+```
+
 In this case, MySQL won’t be able to use the index on queries having an OR condition, even if the query contains lookup column and maintains the order of WHERE clause same as the index.
 Therefore, it’s recommended to avoid such OR conditions and consider splitting the query to two parts, combined with a UNION DISTINCT (or even better, UNION ALL, in case you know there won’t be any duplicate results)
 
+```
 select status,category_id from master_users where status=1
 UNION ALL
 select status,category_id from master_users where category_id=3
+```
 
 **What if your query contains GROUP BY and ORDER BY**
 
 let’s take the same index (status, category_id, email), and you run the query:
 
+```
 select * from master_users where status=1 ORDER BY category_id
+```
 
 This will use the composite index for the WHERE clause and if you think this will narrow down the records with the status having value as 1, sadly you now need to perform a sort on these resulting records to get them sorted by category_id. This is because the index didn’t sort the results by category_id in any meaningful way and ORDER BY clause lacks the lookup column.
 
 This is known as a File Sort (some of you might have noticed this in an explain result). This happens because the index that we created failed to satisfy for the ORDER BY clause.
-File Sort: A sort that occurs after the query; it requires fetching the data into a temporary buffer and sorting it before finally returning. This wouldn’t have been needed if the data was already sorted by the index in the way you wanted.
+**File Sort**: A sort that occurs after the query; it requires fetching the data into a temporary buffer and sorting it before finally returning. This wouldn’t have been needed if the data was already sorted by the index in the way you wanted.
 
 This also applies even If you only wanted to read 10 rows.
 
+```
 select * from master_users where status=1 ORDER BY category_id limit 5
+```
 
 You’ll still be fetching thousands of records, sorting them, and only after this, returning the top 5 while discarding the rest of the records you spent time processing.
 
+```
 select * from master_users where status=1 ORDER BY status, category_id
+```
 
 This query can leverage the usage of the mentioned index because it qualifies for both the WHERE clause and ORDER BY clause.
 
 Consider another query, which sorts rows by the status in ascending order, and then by the category_id in descending order.
 
+```
 select * from master_users where status=1 ORDER BY status ASC, category_id DESC
+```
 
 MySQL cannot use indexes when sorting with a mixed order (both ASC and DESC in the same ORDER BY clause).
 
@@ -180,7 +215,9 @@ Note: This changed with the release of the reversed indexes functionality and My
 
 Whatever you saw against ORDER BY is also applicable to GROUP BY statements. if you run the following query with the composite index on (status, category_id, email):
 
+```
 select * from master_users where status=1 GROUP BY category_id
+```
 
 The records are already sorted by status, category_id and email. This allows you to quickly filter down all the records with status=1. After these results are returned they are also then sorted based on category_id since the index orders the rows differently than required in the query.
 
@@ -221,7 +258,9 @@ MySQL can easily retrieve the Primary Key values for all the records with mode v
 
 Now, what if we add an index like this,
 
+```
 ALTER TABLE master_users ADD INDEX index_covering(mode, mobile)
+```
 
 Using above index, MySQL can easily retrieve the Primary Key values for all the records with mode value as 2, and to fetch the mobile column, MySQL no need to depend on the Primary Key index to fetch row data. Above query is completely covered by the index and hence known as a covering index.
 The ideal database design uses a covering index where practical; the query results are computed entirely from the index, without reading the actual table data.
