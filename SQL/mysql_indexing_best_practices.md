@@ -55,7 +55,7 @@ select * from master_users where email="akhil@gmail.com"
 
 Explaining the above query gives as…
 
-Before Index
+[Before Index](/SQL/images/before_index.png)
 
 Let’s breakdown the EXPLAIN result. 
 
@@ -69,7 +69,7 @@ Let’s add one index and examine what happens.
 ALTER TABLE master_users ADD INDEX index_email(email)
 ```
 
-After adding an index.
+[After adding an index.](/SQL/images/After-adding-index.png)
 
 Now you can see that the query is better optimized and MySQL was able to find a matching result without traversing many rows.
 If you notice, we have our index name present in both of the columns possible_keys and key.
@@ -119,7 +119,7 @@ select count(distinct(email)) from master_users
 select count(distinct(category_id)) from master_users
 ```
 
-Distinctive counts of each column
+[Distinctive counts of each column](/SQL/images/distinctive-count.png)
 
 Here you can see that the cardinality of the category_id column is less than that of email column so that we should create a composite index just as follows.
 
