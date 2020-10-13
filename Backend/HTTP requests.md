@@ -1,8 +1,11 @@
 # HTTP METHODS
 
+### What are HTTP METHODS?
+
 HTTP has a set of request methods to indicate the desired action to be performed for a given resource. Although they can be nouns as well, HTTP methods are sometimes called HTTP verbs. All of the methods share some common features like they are safe, idempotent and cacheable.
 
-Following are the most commonly used HTTP methods:
+
+### Following are the most commonly used HTTP methods:
 
 > GET
 
