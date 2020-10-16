@@ -4,8 +4,8 @@
 Here is the list of concepts (some questions that you get your answers for!) you can learn about after reading this article.
 - [Well, what are containers?](#Containers)
 - [What is docker?](#Docker)
-- [Why docker when there is VM already?](#How-is-Docker-better-than-VM?)
-- [Why does a developer need to learn about docker or any containerization tool?](#A-developer%E2%80%99s-need-to-learn-about-Docker-and-containers)
+- [Why docker when there is VM already?](#How-is-Docker-better-than-VM)
+- [Why does a developer need to learn about docker or any containerization tool?](#A-developers-need-to-learn-about-Docker-and-containers)
 - [Basic docker commands](#Basic-docker-commands)
 - [Resources: What next?, installation steps, glossary, cheat sheet etc.](#Resources-and-Next-Steps)
 
